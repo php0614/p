@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteboard, Pictures, and Embedded Webpages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        #whiteboard {
+            
+            padding: 1px;
+            margin-bottom: 20px;
+        }
+        #content {
+            width: 100%;
+            height: 200px;
+            font-size: 16px;
+        }
+        button, .btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        button:hover, .btn:hover {
+            background-color: #45a049;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        #pictures {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .picture-container {
+            width: calc(25% - 15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .picture {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        #modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        #close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .load-btn, .download-btn {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="whiteboard">
+        <h2>Whiteboard</h2>
+        <iframe src="https://notejoy.com/startup-3e0d69?standalone=true"></iframe>
+        <!-- <iframe src="https://notejoy.com/pictures-3e0e00?standalone=true"></iframe> -->
+        <iframe id="myIframe"></iframe>
+
+        <script>
+            window.setTimeout(function () {
+                var iframe = document.getElementById('myIframe');
+                iframe.setAttribute('src', 'https://notejoy.com/pictures-3e0e00?standalone=true');
+            }, 1000);    
+        </script>
+
+    </div>
+
+    <h2>Embedded Webpages</h2>
+    <h3>Fully Funded Residencies</h3>
+    <iframe style="border: 1px solid #ECECEC" src="https://fullyfunded-residencies.weebly.com/" title="Fully Funded Residencies"></iframe>
+
+    <h3>Art Nuri</h3>
+    <iframe style="border: 1px solid #ECECEC" src="https://artnuri.or.kr" title="Art Nuri"></iframe>
+
+    <script>
+            window.onload = () => {
+            createPictureContainers();
+        };
+
+        // Modal close functionality
+        document.getElementById('close').onclick = () => {
+            document.getElementById('modal').style.display = "none";
+        };
+
+        window.onclick = (event) => {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>
