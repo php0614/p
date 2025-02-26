@@ -3,133 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whiteboard, Pictures, and Embedded Webpages</title>
+    <title>Website Grid Display</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
-        #whiteboard {
-            
-            padding: 1px;
-            margin-bottom: 20px;
-        }
-        #content {
-            width: 100%;
-            height: 200px;
-            font-size: 16px;
-        }
-        button, .btn {
-            margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        button:hover, .btn:hover {
-            background-color: #45a049;
-        }
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-        }
-        #pictures {
+        
+        .grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 5px 5px;
         }
-        .picture-container {
-            width: calc(25% - 15px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+
+        .note-frame {
+            width: calc(50% - 5px);
+            width: 800px;
+            height: 500px;
+            box-sizing: border-box;
         }
-        .picture {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            cursor: pointer;
-            margin-top: 10px;
+        
+        .website-frame {
+            width: calc(50% - 5px);
+            height: 700px;
+            box-sizing: border-box;
         }
-        #modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
+        
+        iframe {
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.9);
+            border: 1px solid #ddd;
+            transform: scale(0.9);
         }
-        #modal-content {
-            margin: auto;
+        
+        a {
+            text-decoration: none;
+            color: #333;
             display: block;
-            width: 80%;
-            max-width: 700px;
+            height: 120%;
         }
-        #close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .load-btn, .download-btn {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-        }
+        h1 {
+      color: #333;
+      margin-bottom: 2rem;
+    }
+    
+    button {
+      background-color: #dabe23;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #cd6525;
+    }
+
     </style>
 </head>
 <body>
-    <div id="whiteboard">
-        <h2>Whiteboard</h2>
-        <iframe src="https://notejoy.com/startup-3e0d69?standalone=true"></iframe>
-        <!-- <iframe src="https://notejoy.com/pictures-3e0e00?standalone=true"></iframe> -->
-        <iframe id="myIframe"></iframe>
+    <div class="container">
+        <button id="openSitesBtn">Open sites</button>
+        <p id="status"></p>
+      </div>
+    
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Array of websites to open
+          const sites = [
+            'https://zkm.de/en/research-production/hertzlab/open-calls-current-projects',
+            "https://montreal.mutek.org/en/news",
+            "https://www.acc.go.kr/main/board/board.do?PID=0701",
 
-        <script>
-            window.setTimeout(function () {
-                var iframe = document.getElementById('myIframe');
-                iframe.setAttribute('src', 'https://notejoy.com/pictures-3e0e00?standalone=true');
-            }, 1000);    
-        </script>
-
-    </div>
-
-    <h2>Embedded Webpages</h2>
-    <h3>Fully Funded Residencies</h3>
-    <iframe style="border: 1px solid #ECECEC" src="https://fullyfunded-residencies.weebly.com/" title="Fully Funded Residencies"></iframe>
-
-    <h3>Art Nuri</h3>
-    <iframe style="border: 1px solid #ECECEC" src="https://artnuri.or.kr" title="Art Nuri"></iframe>
+          ];
+          
+          const openSitesBtn = document.getElementById('openSitesBtn');
+          const statusElement = document.getElementById('status');
+          
+          openSitesBtn.addEventListener('click', function() {
+            // Display how many sites are being opened
+            statusElement.textContent = `Opening ${sites.length} websites...`;
+            
+            // Loop through the sites array and open each site in a new tab
+            sites.forEach(site => {
+              window.open(site, '_blank');
+            });
+            
+            // Update status message
+            statusElement.textContent = `${sites.length} websites opened successfully!`;
+          });
+        });
+      </script>
+    
+    <div class="grid" id="website-grid"></div>
 
     <script>
-            window.onload = () => {
-            createPictureContainers();
-        };
+        // Array of website addresses
+        const notes = [
+            "https://notejoy.com/startup-3e0d69?standalone=true",
+            "https://notejoy.com/pictures-3e0e00?standalone=true"
+        ]
+        const sites = [
+            "https://artnuri.or.kr",
+            "https://www.sfac.or.kr/participation/participation/artspace_project.do",
+            "https://fullyfunded-residencies.weebly.com/"
+        ];
+        
+        // Get the grid container
+        const grid = document.getElementById('website-grid');
+        
+        notes.forEach((site, index) => {
+            // Create website frame div
+            const frame = document.createElement('div');
+            frame.className = 'note-frame';
+            
+            // Create clickable link that opens in new tab
+            const link = document.createElement('a');
+            link.href = site;
+            link.target = '_blank';
+            link.title = `Visit ${site}`;
+            
+            // Create iframe to display website
+            const iframe = document.createElement('iframe');
+            iframe.src = site;
+            iframe.sandbox = 'allow-same-origin allow-scripts';
+            iframe.title = `Website ${index + 1}`;
+            
+            // Add iframe to link and link to frame
+            link.appendChild(iframe);
+            frame.appendChild(link);
+            
+            // Add frame to grid
+            grid.appendChild(frame);
+        });
 
-        // Modal close functionality
-        document.getElementById('close').onclick = () => {
-            document.getElementById('modal').style.display = "none";
-        };
-
-        window.onclick = (event) => {
-            const modal = document.getElementById('modal');
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
+        // Create website frames
+        sites.forEach((site, index) => {
+            // Create website frame div
+            const frame = document.createElement('div');
+            frame.className = 'website-frame';
+            
+            // Create clickable link that opens in new tab
+            const link = document.createElement('a');
+            link.href = site;
+            link.target = '_blank';
+            link.title = `Visit ${site}`;
+            
+            // Create iframe to display website
+            const iframe = document.createElement('iframe');
+            iframe.src = site;
+            iframe.sandbox = 'allow-same-origin allow-scripts';
+            iframe.title = `Website ${index + 1}`;
+            
+            // Add iframe to link and link to frame
+            link.appendChild(iframe);
+            frame.appendChild(link);
+            
+            // Add frame to grid
+            grid.appendChild(frame);
+        });
     </script>
 </body>
 </html>
