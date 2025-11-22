@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Grid Display</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px 5px;
-        }
 
-        .note-frame {
-            width: calc(50% - 5px);
-            width: 800px;
-            height: 500px;
-            box-sizing: border-box;
-        }
-        
-        .website-frame {
-            width: calc(50% - 5px);
-            height: 700px;
-            box-sizing: border-box;
-        }
-        
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #ddd;
-            transform: scale(0.9);
-        }
-        
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            height: 120%;
-        }
-        h1 {
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Grid Display</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 5px;
+    }
+
+
+
+    .website-frame {
+      width: calc(50% - 5px);
+      height: 700px;
+      box-sizing: border-box;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #ddd;
+      transform: scale(0.9);
+    }
+
+    a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      height: 120%;
+    }
+
+    h1 {
       color: #333;
       margin-bottom: 2rem;
     }
-    
+
     button {
       background-color: #dabe23;
       color: white;
@@ -58,115 +55,89 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    
+
     button:hover {
       background-color: #cd6525;
     }
-
-    </style>
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <button id="openSitesBtn">Open sites</button>
-        <p id="status"></p>
-      </div>
-    
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          // Array of websites to open
-          const sites = [
-            'https://zkm.de/en/research-production/hertzlab/open-calls-current-projects',
-            "https://montreal.mutek.org/en/news",
-            "https://www.acc.go.kr/main/board/board.do?PID=0701"
+  <div class="container">
+    <button id="openSitesBtn">Open sites</button>
+    <p id="status"></p>
+  </div>
 
-          ];
-          
-          const openSitesBtn = document.getElementById('openSitesBtn');
-          const statusElement = document.getElementById('status');
-          
-          openSitesBtn.addEventListener('click', function() {
-            // Display how many sites are being opened
-            statusElement.textContent = `Opening ${sites.length} websites...`;
-            
-            // Loop through the sites array and open each site in a new tab
-            sites.forEach(site => {
-              window.open(site, '_blank');
-            });
-            
-            // Update status message
-            statusElement.textContent = `${sites.length} websites opened successfully!`;
-          });
-        });
-      </script>
-    
-    <div class="grid" id="website-grid"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Array of websites to open
+      const sites = [
+        'https://zkm.de/en/research-production/hertzlab/open-calls-current-projects',
+        "https://montreal.mutek.org/en/news",
+        "https://www.acc.go.kr/main/board/board.do?PID=0701"
 
-    <script>
-        // Array of website addresses
-        const notes = [
-            "https://notejoy.com/startup-3e0d69?standalone=true",
-            "https://notejoy.com/pictures-3e0e00?standalone=true"
-        ]
-        const sites = [
-            "https://artnuri.or.kr",
-            "https://www.sfac.or.kr/participation/participation/artspace_project.do",
-            "https://fullyfunded-residencies.weebly.com/",
-            "https://ars.electronica.art/news/en/opencalls/"
-        ];
-        
-        // Get the grid container
-        const grid = document.getElementById('website-grid');
-        
-        notes.forEach((site, index) => {
-            // Create website frame div
-            const frame = document.createElement('div');
-            frame.className = 'note-frame';
-            
-            // Create clickable link that opens in new tab
-            const link = document.createElement('a');
-            link.href = site;
-            link.target = '_blank';
-            link.title = `Visit ${site}`;
-            
-            // Create iframe to display website
-            const iframe = document.createElement('iframe');
-            iframe.src = site;
-            iframe.sandbox = 'allow-same-origin allow-scripts';
-            iframe.title = `Website ${index + 1}`;
-            
-            // Add iframe to link and link to frame
-            link.appendChild(iframe);
-            frame.appendChild(link);
-            
-            // Add frame to grid
-            grid.appendChild(frame);
+      ];
+
+      const openSitesBtn = document.getElementById('openSitesBtn');
+      const statusElement = document.getElementById('status');
+
+      openSitesBtn.addEventListener('click', function () {
+        // Display how many sites are being opened
+        statusElement.textContent = `Opening ${sites.length} websites...`;
+
+        // Loop through the sites array and open each site in a new tab
+        sites.forEach(site => {
+          window.open(site, '_blank');
         });
 
-        // Create website frames
-        sites.forEach((site, index) => {
-            // Create website frame div
-            const frame = document.createElement('div');
-            frame.className = 'website-frame';
-            
-            // Create clickable link that opens in new tab
-            const link = document.createElement('a');
-            link.href = site;
-            link.target = '_blank';
-            link.title = `Visit ${site}`;
-            
-            // Create iframe to display website
-            const iframe = document.createElement('iframe');
-            iframe.src = site;
-            iframe.sandbox = 'allow-same-origin allow-scripts';
-            iframe.title = `Website ${index + 1}`;
-            
-            // Add iframe to link and link to frame
-            link.appendChild(iframe);
-            frame.appendChild(link);
-            
-            // Add frame to grid
-            grid.appendChild(frame);
-        });
-    </script>
+        // Update status message
+        statusElement.textContent = `${sites.length} websites opened successfully!`;
+      });
+    });
+  </script>
+
+  <div class="grid" id="website-grid"></div>
+
+  <script>
+
+    const sites = [
+      "https://artnuri.or.kr",
+      "https://www.sfac.or.kr/participation/participation/artspace_project.do",
+      "https://fullyfunded-residencies.org/",
+      "https://ars.electronica.art/news/en/opencalls/"
+    ];
+
+    // Get the grid container
+    const grid = document.getElementById('website-grid');
+
+
+
+    // Create website frames
+    sites.forEach((site, index) => {
+      // Create website frame div
+      const frame = document.createElement('div');
+      frame.className = 'website-frame';
+
+      // Create clickable link that opens in new tab
+      const link = document.createElement('a');
+      link.href = site;
+      link.target = '_blank';
+      link.title = `Visit ${site}`;
+
+      // Create iframe to display website
+      const iframe = document.createElement('iframe');
+      iframe.src = site;
+      iframe.sandbox = 'allow-same-origin allow-scripts';
+      iframe.title = `Website ${index + 1}`;
+
+      // Add iframe to link and link to frame
+      link.appendChild(iframe);
+      frame.appendChild(link);
+
+      // Add frame to grid
+      grid.appendChild(frame);
+    });
+  </script>
 </body>
+
 </html>
